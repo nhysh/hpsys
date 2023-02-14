@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.mapper.HolidayApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hp.pojo.HolidayApply">
+        <id column="id" property="id" />
+        <result column="account_id" property="accountId" />
+        <result column="title" property="title" />
+        <result column="user_name" property="userName" />
+        <result column="reason" property="reason" />
+        <result column="days" property="days" />
+        <result column="holiday_type" property="holidayType" />
+        <result column="submit_time" property="submitTime" />
+        <result column="remark" property="remark" />
+        <result column="status" property="status" />
+        <result column="approval_status" property="approvalStatus" />
+        <result column="process_instance_id" property="processInstanceId" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_valid" property="isValid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account_id, title, user_name, reason, days, holiday_type, submit_time, remark, status, approval_status, process_instance_id, start_time, end_time, create_time, update_time, is_valid
+    </sql>
+
+    <select id="queryMyTask" resultType="com.hp.dto.HolidayApplyDto">
+        SELECT
+            h.*,
+            res.`ID_` AS taskId,
+            res.`ASSIGNEE_` AS assignee,
+            res.`NAME_` AS actName,
+            res.`PROC_INST_ID_` processInstanceId
+        FROM act_ru_task res
+                 LEFT JOIN act_ru_identitylink i ON i.`TASK_ID_`=res.`ID_`
+                 INNER JOIN act_re_procdef d ON res.`PROC_DEF_ID_`=d.`ID_`
+                 LEFT JOIN t_holiday_apply h ON res.`BUSINESS_KEY_`=h.`id`
+        WHERE
+            d.`KEY_`=#{myTaskQuery.processDefinitionKey}
+          AND
+            (
+                    res.`ASSIGNEE_`=#{myTaskQuery.userName}
+                    OR (res.`ASSIGNEE_` IS NULL AND i.`TYPE_`='candidate'
+                    AND (i.`USER_ID_`=#{myTaskQuery.userName}))
+                )
+          AND res.`SUSPENSION_STATE_`=1
+    </select>
+
+</mapper>

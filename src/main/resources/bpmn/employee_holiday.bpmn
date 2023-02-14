@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://activiti.org/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="employee_holiday" name="员工请假流程图" isExecutable="true">
+    <bpmn2:startEvent id="start" name="开始">
+      <bpmn2:outgoing>Flow_0evmftt</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="Activity_1j06xft" name="部门领导审批">
+      <bpmn2:incoming>Flow_0evmftt</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1eti7gf</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_0evmftt" sourceRef="start" targetRef="Activity_1j06xft" />
+    <bpmn2:userTask id="Activity_0f2l2zi" name="人事审批">
+      <bpmn2:incoming>Flow_1eti7gf</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_18te65c</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_1eti7gf" sourceRef="Activity_1j06xft" targetRef="Activity_0f2l2zi" />
+    <bpmn2:endEvent id="end" name="结束">
+      <bpmn2:incoming>Flow_18te65c</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_18te65c" sourceRef="Activity_0f2l2zi" targetRef="end" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="employee_holiday">
+      <bpmndi:BPMNEdge id="Flow_0evmftt_di" bpmnElement="Flow_0evmftt">
+        <di:waypoint x="448" y="258" />
+        <di:waypoint x="500" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eti7gf_di" bpmnElement="Flow_1eti7gf">
+        <di:waypoint x="600" y="258" />
+        <di:waypoint x="660" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18te65c_di" bpmnElement="Flow_18te65c">
+        <di:waypoint x="760" y="258" />
+        <di:waypoint x="822" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="412" y="240" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="419" y="283" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1j06xft_di" bpmnElement="Activity_1j06xft">
+        <dc:Bounds x="500" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f2l2zi_di" bpmnElement="Activity_0f2l2zi">
+        <dc:Bounds x="660" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0cl2cm3_di" bpmnElement="end">
+        <dc:Bounds x="822" y="240" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="829" y="283" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
